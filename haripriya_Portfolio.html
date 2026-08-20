@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haripriya Patra — B.Tech CSE (AI)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B1220;
+    --bg-surface: #111827;
+    --bg-surface-2: #1E293B;
+    --line: #334155;
+    --text: #F8FAFC;
+    --text-muted: #94A3B8;
+    --amber: #38BDF8;
+    --amber-soft: rgba(56,189,248,0.12);
+    --teal: #22C55E;
+    --radius: 6px;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  ::selection{ background:var(--amber-soft); color:var(--amber); }
+
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 28px; }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,18,32,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:1080px; margin:0 auto;
+  }
+  .logo{
+    font-family:var(--mono); font-weight:700; font-size:15px;
+    color:var(--text);
+  }
+  .logo span{ color:var(--amber); }
+  .nav-links{ display:flex; gap:28px; font-family:var(--mono); font-size:13px; }
+  .nav-links a{
+    color:var(--text-muted); transition:color .15s ease;
+    position:relative;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--amber); }
+  .nav-toggle{ display:none; background:none; border:1px solid var(--line); color:var(--text); font-family:var(--mono); padding:6px 10px; border-radius:var(--radius); font-size:13px; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:88px 0 72px; }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center; }
+  .eyebrow{
+    font-family:var(--mono); color:var(--amber); font-size:13px;
+    letter-spacing:.04em; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:8px; height:8px; border-radius:50%; background:var(--amber); box-shadow:0 0 0 3px var(--amber-soft); }
+  h1{
+    font-family:var(--mono); font-weight:800; font-size:clamp(32px,4.4vw,48px);
+    line-height:1.15; letter-spacing:-0.01em; margin-bottom:16px;
+  }
+  .hero p.sub{ color:var(--text-muted); font-size:17px; max-width:46ch; margin-bottom:32px; }
+  .btn-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:13.5px; font-weight:500;
+    padding:12px 22px; border-radius:var(--radius); border:1px solid transparent;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{ background:var(--amber); color:#07111F; }
+  .btn-primary:hover{ transform:translateY(-2px); background:#7DD3FC; }
+  .btn-ghost{ border-color:var(--line); color:var(--text); }
+  .btn-ghost:hover{ transform:translateY(-2px); border-color:var(--amber); color:var(--amber); }
+
+  /* terminal card */
+  .terminal{
+    background:var(--bg-surface); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden; box-shadow:0 24px 60px -20px rgba(0,0,0,0.6);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:7px; padding:12px 16px;
+    background:var(--bg-surface-2); border-bottom:1px solid var(--line);
+  }
+  .dot{ width:10px; height:10px; border-radius:50%; }
+  .dot.r{ background:#e5645a; } .dot.y{ background:#e8b84b; } .dot.g{ background:#5fbf6f; }
+  .terminal-title{ margin-left:8px; font-family:var(--mono); font-size:12px; color:var(--text-muted); }
+  .terminal-body{ padding:22px 20px; font-family:var(--mono); font-size:13.5px; }
+  .terminal-body .line{ margin-bottom:12px; }
+  .prompt{ color:var(--teal); }
+  .out{ color:var(--text-muted); }
+  .out strong{ color:var(--text); font-weight:600; }
+  .cursor{ display:inline-block; width:8px; height:15px; background:var(--amber); margin-left:2px; animation:blink 1s step-end infinite; vertical-align:text-bottom; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  /* ---------- section shell ---------- */
+  section{ padding:64px 0; border-top:1px solid var(--line); }
+  .section-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:36px; }
+  .section-num{ font-family:var(--mono); color:var(--amber); font-size:13px; }
+  h2{ font-family:var(--mono); font-size:24px; font-weight:700; letter-spacing:-0.01em; }
+  .section-head::after{ content:''; flex:1; height:1px; background:var(--line); }
+
+  /* ---------- about ---------- */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:48px; }
+  .about-grid p{ color:var(--text-muted); margin-bottom:16px; font-size:15.5px; }
+  .about-grid p strong{ color:var(--text); }
+  .edu-card{
+    background:var(--bg-surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:22px 24px;
+  }
+  .edu-card .school{ font-weight:600; font-size:15.5px; margin-bottom:4px; }
+  .edu-card .degree{ color:var(--amber); font-family:var(--mono); font-size:12.5px; margin-bottom:14px; }
+  .edu-meta{ display:flex; gap:24px; font-family:var(--mono); font-size:12.5px; color:var(--text-muted); margin-bottom:14px; flex-wrap:wrap; }
+  .edu-meta b{ color:var(--text); display:block; font-size:15px; font-family:var(--sans); }
+  .edu-card .note{ font-size:13.5px; color:var(--text-muted); border-top:1px solid var(--line); padding-top:14px; margin-top:2px; }
+
+  /* ---------- skills ---------- */
+  .skills-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .skill-card{
+    background:var(--bg-surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px; transition:border-color .15s ease, transform .15s ease;
+  }
+  .skill-card:hover{ border-color:var(--amber); transform:translateY(-3px); }
+  .skill-card .cat{ font-family:var(--mono); font-size:11.5px; color:var(--amber); margin-bottom:12px; text-transform:uppercase; letter-spacing:.05em; }
+  .skill-card li{ font-size:13.5px; color:var(--text); padding:3px 0; }
+  .skill-card li::before{ content:'— '; color:var(--text-muted); }
+
+  /* ---------- experience ---------- */
+  .exp-card{
+    background:var(--bg-surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px 28px; font-family:var(--mono);
+  }
+  .exp-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:14px; flex-wrap:wrap; }
+  .exp-role{ font-size:16px; font-weight:700; color:var(--text); }
+  .exp-org{ color:var(--amber); font-size:13px; margin-top:4px; }
+  .exp-date{ font-size:12px; color:var(--text-muted); border:1px solid var(--line); padding:4px 10px; border-radius:20px; white-space:nowrap; }
+  .exp-desc{ font-family:var(--sans); color:var(--text-muted); font-size:14.5px; margin-bottom:4px; }
+
+  /* ---------- projects ---------- */
+  .proj-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-bottom:18px; }
+  .proj-card{
+    background:var(--bg-surface); border:1px solid var(--line); border-radius:8px;
+    overflow:hidden; transition:border-color .15s ease, transform .15s ease;
+  }
+  .proj-card:hover{ border-color:var(--teal); transform:translateY(-3px); }
+  .proj-head{
+    display:flex; align-items:center; gap:8px; padding:10px 16px;
+    background:var(--bg-surface-2); border-bottom:1px solid var(--line);
+    font-family:var(--mono); font-size:11.5px; color:var(--text-muted);
+  }
+  .proj-body{ padding:20px; }
+  .proj-body h3{ font-size:16.5px; margin-bottom:8px; }
+  .proj-body p{ color:var(--text-muted); font-size:14px; margin-bottom:14px; }
+  .tag-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .tag{
+    font-family:var(--mono); font-size:11px; color:var(--teal);
+    border:1px solid rgba(111,179,170,0.35); background:rgba(111,179,170,0.08);
+    padding:3px 9px; border-radius:20px;
+  }
+  .more-list{
+    background:var(--bg-surface); border:1px solid var(--line); border-radius:8px; padding:20px 24px;
+  }
+  .more-list .ls-head{ font-family:var(--mono); font-size:12px; color:var(--amber); margin-bottom:12px; }
+  .ls-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px 24px; }
+  .ls-grid li{ font-family:var(--mono); font-size:13.5px; color:var(--text-muted); }
+  .ls-grid li::before{ content:'./ '; color:var(--line); }
+  .ls-grid li:hover{ color:var(--text); }
+
+  /* ---------- certifications ---------- */
+  .cert-row{ display:flex; gap:16px; flex-wrap:wrap; }
+  .cert-chip{
+    display:flex; align-items:center; gap:12px;
+    background:var(--bg-surface); border:1px solid var(--line); border-radius:var(--radius);
+    padding:14px 20px; flex:1; min-width:260px;
+  }
+  .cert-icon{ width:34px; height:34px; border-radius:50%; background:var(--amber-soft); color:var(--amber); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-weight:700; flex-shrink:0; }
+  .cert-chip .t{ font-size:14.5px; font-weight:600; }
+  .cert-chip .s{ font-size:12.5px; color:var(--text-muted); font-family:var(--mono); }
+
+  /* ---------- contact / footer ---------- */
+  .contact{ text-align:center; }
+  .contact h2{ font-size:28px; margin-bottom:10px; }
+  .contact p{ color:var(--text-muted); max-width:44ch; margin:0 auto 30px; }
+  .contact-links{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  footer{ border-top:1px solid var(--line); padding:32px 0; }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  .footer-row .logo{ font-size:14px; }
+  .footer-links{ display:flex; gap:20px; font-family:var(--mono); font-size:12.5px; color:var(--text-muted); }
+  .footer-links a:hover{ color:var(--amber); }
+  .copyright{ font-family:var(--mono); font-size:11.5px; color:var(--text-muted); text-align:center; margin-top:20px; }
+
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .about-grid{ grid-template-columns:1fr; }
+    .skills-grid{ grid-template-columns:repeat(2,1fr); }
+    .proj-grid{ grid-template-columns:1fr; }
+    .ls-grid{ grid-template-columns:repeat(2,1fr); }
+    .nav-links{ display:none; }
+  }
+  @media (max-width:480px){
+    .skills-grid{ grid-template-columns:1fr; }
+    .ls-grid{ grid-template-columns:1fr; }
+    h1{ font-size:28px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">haripriya<span>.dev</span></div>
+    <div class="nav-links">
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#contact">contact</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero wrap" style="border-top:none;">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">available for internships</div>
+        <h1>Haripriya Patra</h1>
+        <p class="sub">B.Tech CSE (Artificial Intelligence) student building practical Python, AI/ML and web applications — one project at a time.</p>
+        <div class="btn-row">
+          <a href="#projects" class="btn btn-primary">View Projects →</a>
+          <a href="#contact" class="btn btn-ghost">Get In Touch</a>
+        </div>
+      </div>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span class="terminal-title">haripriya@portfolio ~ </span>
+        </div>
+        <div class="terminal-body">
+          <div class="line"><span class="prompt">$</span> whoami</div>
+          <div class="line out"><strong>Haripriya Patra</strong> — CSE (AI), Vignan's Institute for Engineering for Women</div>
+          <div class="line"><span class="prompt">$</span> cat interests.txt</div>
+          <div class="line out">Python · AI/ML · Web Development · Databases</div>
+          <div class="line"><span class="prompt">$</span> cat goal.txt</div>
+          <div class="line out">Becoming an AI Engineer<span class="cursor"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="about">
+    <div class="section-head"><span class="section-num">01</span><h2>About Me</h2></div>
+    <div class="about-grid">
+      <div>
+        <p>I'm a <strong>B.Tech Computer Science and Engineering student specializing in Artificial Intelligence</strong> at Vignan's Institute for Engineering for Women, Visakhapatnam.</p>
+        <p>I'm interested in <strong>Python development, Artificial Intelligence, Machine Learning, web development, and database technologies</strong>, and I enjoy turning ideas into practical, working applications through hands-on projects.</p>
+        <p>Along the way I've built things like a <strong>Deepface Detection app, a Vehicle Parking Management System, a Rent Calculator, and a UPI QR Code Generator</strong> — mostly self-taught, project by project.</p>
+        <p>I'm always looking to explore new technologies, sharpen my technical skills, and get real-world development experience.</p>
+      </div>
+      <div class="edu-card">
+        <div class="degree">EDUCATION</div>
+        <div class="school">Vignan's Institute for Engineering for Women</div>
+        <p style="color:var(--text-muted); font-size:13.5px; margin-bottom:16px;">B.Tech — Computer Science &amp; Engineering (Artificial Intelligence)</p>
+        <div class="edu-meta">
+          <div><b>2028</b>Expected Graduation</div>
+          <div><b>7.43</b>CGPA</div>
+          <div><b>Visakhapatnam</b>Location</div>
+        </div>
+        <p class="note">Earlier schooling: Saraswati Vidya Mandir, Damanjodi (10th &amp; Intermediate).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="skills">
+    <div class="section-head"><span class="section-num">02</span><h2>Technical Skills</h2></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="cat">Languages</div>
+        <ul><li>Python</li><li>Java</li><li>SQL</li></ul>
+      </div>
+      <div class="skill-card">
+        <div class="cat">Web</div>
+        <ul><li>HTML</li><li>CSS</li></ul>
+      </div>
+      <div class="skill-card">
+        <div class="cat">Libraries &amp; Tools</div>
+        <ul><li>OpenCV</li><li>Tkinter</li></ul>
+      </div>
+      <div class="skill-card">
+        <div class="cat">Database</div>
+        <ul><li>MySQL</li></ul>
+      </div>
+      <div class="skill-card">
+        <div class="cat">Version Control</div>
+        <ul><li>Git</li><li>GitHub</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="experience">
+    <div class="section-head"><span class="section-num">03</span><h2>Internship Experience</h2></div>
+    <div class="exp-card">
+      <div class="exp-top">
+        <div>
+          <div class="exp-role">Systems Department — Intern</div>
+          <div class="exp-org">National Aluminium Company Limited (NALCO)</div>
+        </div>
+        <div class="exp-date">02 May 2026 – 31 May 2026</div>
+      </div>
+      <p class="exp-desc">Gained hands-on exposure to IT operations and departmental workflows. Worked on projects that applied technical knowledge in a practical environment, strengthening my understanding of professional IT systems.</p>
+    </div>
+  </section>
+
+  <section class="wrap" id="projects">
+    <div class="section-head"><span class="section-num">04</span><h2>Projects</h2></div>
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="proj-head">📁 deepface-detection/</div>
+        <div class="proj-body">
+          <h3>Deepface Detection</h3>
+          <p>A Python application built with OpenCV to detect facial expressions from images or video, classifying them as happy, sad, angry, or neutral.</p>
+          <div class="tag-row"><span class="tag">Python</span><span class="tag">OpenCV</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-head">📁 ai-chatbot/</div>
+        <div class="proj-body">
+          <h3>AI Chatbot</h3>
+          <p>A conversational chatbot built in Python, focused on creating an interactive system that communicates with users through a chat interface.</p>
+          <div class="tag-row"><span class="tag">Python</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-head">📁 vehicle-parking-system/</div>
+        <div class="proj-body">
+          <h3>Vehicle Parking Management System</h3>
+          <p>A system to manage vehicle entry, exit, and parking slot allocation — built to organize parking operations and simplify slot management.</p>
+          <div class="tag-row"><span class="tag">Python</span><span class="tag">MySQL</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-head">📁 rent-calculator/</div>
+        <div class="proj-body">
+          <h3>Rent Calculator</h3>
+          <p>A Python application that calculates rent-related values based on user-provided input.</p>
+          <div class="tag-row"><span class="tag">Python</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-head">📁 upi-qr-generator/</div>
+        <div class="proj-body">
+          <h3>UPI QR Code Generator</h3>
+          <p>Generates a scannable UPI QR code from a user-entered UPI ID, ready to be used for accepting payments.</p>
+          <div class="tag-row"><span class="tag">Python</span></div>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-head">📁 to-do-list/</div>
+        <div class="proj-body">
+          <h3>To-Do List</h3>
+          <p>A simple task manager built with Tkinter for adding, tracking, and completing daily tasks.</p>
+          <div class="tag-row"><span class="tag">Python</span><span class="tag">Tkinter</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="more-list">
+      <div class="ls-head">$ ls more-projects/</div>
+      <ul class="ls-grid">
+        <li>spelling-checker</li>
+        <li>digital-clock</li>
+        <li>text-editor</li>
+        <li>tic-tac-toe</li>
+        <li>rock-paper-scissors</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap" id="certifications">
+    <div class="section-head"><span class="section-num">05</span><h2>Certifications</h2></div>
+    <div class="cert-row">
+      <div class="cert-chip">
+        <div class="cert-icon">N</div>
+        <div><div class="t">NPTEL Certification</div><div class="s">Completed as part of ongoing technical learning</div></div>
+      </div>
+      <div class="cert-chip">
+        <div class="cert-icon">N</div>
+        <div><div class="t">NALCO Internship Completion Certificate</div><div class="s">Systems Department, National Aluminium Company Limited</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap contact" id="contact">
+    <div class="section-head" style="justify-content:center;"><span class="section-num">06</span><h2>Get In Touch</h2></div>
+    <p>Open to internship opportunities and campus placements — happy to talk Python, AI/ML, or any of the projects above.</p>
+    <div class="contact-links">
+      <a href="mailto:haripriyap014@gmail.com" class="btn btn-primary">✉ Email Me</a>
+      <a href="https://www.linkedin.com/in/haripriya-patra-57a815340" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+      <a href="https://github.com/haripriyap020" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="logo">haripriya<span>.dev</span></div>
+    <div class="footer-links">
+      <a href="mailto:haripriyap014@gmail.com">haripriyap014@gmail.com</a>
+      <a href="https://github.com/haripriyap020" target="_blank" rel="noopener">github.com/haripriyap020</a>
+    </div>
+  </div>
+  <div class="copyright">© 2026 Haripriya Patra. Built while learning — and still learning.</div>
+</footer>
+
+</body>
+</html>
